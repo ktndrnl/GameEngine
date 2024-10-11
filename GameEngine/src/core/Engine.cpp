@@ -4,6 +4,7 @@
 #include "graphics/Camera.h"
 #include "graphics/Material.h"
 #include "graphics/Mesh.h"
+#include "graphics/Model.h"
 #include "graphics/ShaderConstants.h"
 #include "graphics/Texture.h"
 #include "lighting/DirectionalLight.h"
@@ -32,6 +33,11 @@ void Engine::initialize()
 
 void Engine::mainLoop()
 {
+    Model chest = Model();
+    chest.loadModel("models/chest_gold.obj");
+    Model cow = Model();
+    cow.loadModel("models/Cow.glb");
+
     float angle = 0.0f;
     const auto shader = shaderManager.getShader(ShaderConstants::MAIN_SHADER_NAME);
 
@@ -84,7 +90,7 @@ void Engine::mainLoop()
         glUniform3f(uniformCameraPosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
         glm::mat4 model(1.0f);
-        model = glm::translate(model, glm::vec3(-0.75f, 0.5f, 0.0f));
+        model = glm::translate(model, glm::vec3(-0.75f, 0.5f + (0.1f * glm::sin(glfwGetTime() * 2.0f)), 0.0f));
         model = glm::rotate(model, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
         // model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -93,7 +99,7 @@ void Engine::mainLoop()
         meshList[0]->renderMesh();
 
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.75f, 1.5f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.75f, 1.5f + (0.1f * glm::sin((glfwGetTime() + 0.5f) * 2.0f)), 0.0f));
         model = glm::rotate(model, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         model = glm::rotate(model, glm::radians(-angle), glm::vec3(0.0f, 1.0f, 0.0f));
         // model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
@@ -108,6 +114,13 @@ void Engine::mainLoop()
         floorTexture.useTexture();
         shinyMaterial.useMaterial(uniformSpecularIntensity, uniformShininess);
         meshList[2]->renderMesh();
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 2 + (0.1f * glm::sin((glfwGetTime() + 0.3f) * 2.0f)), 0.0f));
+        model = glm::rotate(model, -glm::radians(angle + 45), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        shinyMaterial.useMaterial(uniformSpecularIntensity, uniformShininess);
+        cow.renderModel();
 
         glUseProgram(0);
         mainWindow.swapBuffers();
@@ -187,5 +200,5 @@ void Engine::createLights()
     pointLights.emplace_back(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, -2.0f, 1.0f, -1.0f, 0.9f, 0.2f, 0.1f);
 
     spotLights.emplace_back(1.0f, 1.0f, 1.0f, 0.0f, 2.0f, 0.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.1f, 0.1f, 20.0f);
-    spotLights.emplace_back(1.0f, 1.0f, 1.0f, 0.0f, 1.5f, 0.0f, 0.5f, -5.0f, 0.0f, 0.0f, 100.0f, 1.0f, 0.0f, 0.0f, 30.0f);
+    spotLights.emplace_back(1.0f, 1.0f, 1.0f, 0.0f, 1.5f, 0.0f, 0.5f, -5.0f, 0.0f, 15.0f, 100.0f, 1.0f, 0.0f, 0.0f, 30.0f);
 }

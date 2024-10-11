@@ -57,6 +57,9 @@
     <ClCompile Include="src\lighting\SpotLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Mesh.h">
@@ -101,6 +104,9 @@
     <ClInclude Include="src\lighting\SpotLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="shaders\shader.frag" />
@@ -141,5 +147,30 @@
     <CopyFileToFolders Include="textures\white.png">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="models\chest_gold.obj" />
+    <CopyFileToFolders Include="models\chest_gold.mtl" />
+    <CopyFileToFolders Include="textures\dungeon_texture.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="models\Skeleton_Warrior.fbx" />
+    <CopyFileToFolders Include="textures\skeleton_texture.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="models\docLorean.fbx" />
+    <CopyFileToFolders Include="models\volvo.blend" />
+    <CopyFileToFolders Include="textures\volvo.jpg">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="models\Plane_06.mtl" />
+    <CopyFileToFolders Include="models\Plane_06.obj" />
+    <CopyFileToFolders Include="textures\Plane_06.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="models\jackolantern_big.obj" />
+    <CopyFileToFolders Include="models\jackolantern_big.mtl" />
+    <CopyFileToFolders Include="models\Cow.glb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Keeton\Downloads\- Classic 64 Asset Pack 0.6\Vehicles\volvo.blend" />
   </ItemGroup>
 </Project>
