@@ -37,6 +37,8 @@ void Engine::mainLoop()
     chest.loadModel("models/chest_gold.obj");
     Model cow = Model();
     cow.loadModel("models/Cow.glb");
+    Model soccer = Model();
+    soccer.loadModel("models/soccer.obj");
 
     float angle = 0.0f;
     const auto shader = shaderManager.getShader(ShaderConstants::MAIN_SHADER_NAME);
@@ -118,9 +120,10 @@ void Engine::mainLoop()
         model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 2 + (0.1f * glm::sin((glfwGetTime() + 0.3f) * 2.0f)), 0.0f));
         model = glm::rotate(model, -glm::radians(angle + 45), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
         shinyMaterial.useMaterial(uniformSpecularIntensity, uniformShininess);
-        cow.renderModel();
+        soccer.renderModel();
 
         glUseProgram(0);
         mainWindow.swapBuffers();

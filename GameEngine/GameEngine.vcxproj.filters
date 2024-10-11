@@ -169,6 +169,8 @@
     <CopyFileToFolders Include="models\jackolantern_big.obj" />
     <CopyFileToFolders Include="models\jackolantern_big.mtl" />
     <CopyFileToFolders Include="models\Cow.glb" />
+    <CopyFileToFolders Include="models\golf_ball.obj" />
+    <CopyFileToFolders Include="models\soccer.obj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="C:\Users\Keeton\Downloads\- Classic 64 Asset Pack 0.6\Vehicles\volvo.blend" />
