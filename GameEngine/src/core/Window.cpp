@@ -128,6 +128,16 @@ void Window::toggleMouseLock()
     }
 }
 
+bool Window::getShouldToggleFlashlight()
+{
+    if (shouldToggleFlashlight)
+    {
+        shouldToggleFlashlight = false;
+        return true;
+    }
+    return false;
+}
+
 void Window::createCallbacks() const
 {
     glfwSetKeyCallback(mainWindow, handleKeys);
@@ -146,6 +156,11 @@ void Window::handleKeys(GLFWwindow* window, const int key, int code, const int a
     if (key == GLFW_KEY_TAB && action == GLFW_RELEASE)
     {
         theWindow->toggleMouseLock();
+    }
+
+    if (key == GLFW_KEY_F && action == GLFW_RELEASE)
+    {
+        theWindow->shouldToggleFlashlight = true;
     }
 
     if (key >= 0 && key < 1024)

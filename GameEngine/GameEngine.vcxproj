@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\lighting\SpotLight.cpp" />
     <ClCompile Include="src\graphics\Camera.cpp" />
     <ClCompile Include="src\lighting\DirectionalLight.cpp" />
     <ClCompile Include="src\core\Engine.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="src\core\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\lighting\SpotLight.h" />
     <ClInclude Include="src\graphics\Camera.h" />
     <ClInclude Include="src\lighting\DirectionalLight.h" />
     <ClInclude Include="src\core\Engine.h" />

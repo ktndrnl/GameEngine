@@ -53,6 +53,11 @@ void Engine::mainLoop()
         camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
         camera.setMouseLook(mainWindow.getMouseLocked());
 
+        if (mainWindow.getShouldToggleFlashlight())
+        {
+            spotLights[0].toggle();
+        }
+
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -64,8 +69,13 @@ void Engine::mainLoop()
         const GLuint uniformSpecularIntensity = shader->getUniformLocation(ShaderUniforms::Material::SPECULAR_INTENSITY);
         const GLuint uniformShininess = shader->getUniformLocation(ShaderUniforms::Material::SHININESS);
 
+        glm::vec3 lowerLight = camera.getCameraPosition();
+        lowerLight.y -= 0.3f;
+        spotLights[0].setFlash(lowerLight , camera.getCameraDirection());
+
         shader->setDirectionalLight(mainLight);
         shader->setPointLights(pointLights);
+        shader->setSpotLights(spotLights);
 
         glm::mat4 projection = Camera::getProjectionMatrix(mainWindow.getAspectRatio());
         glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
@@ -170,9 +180,12 @@ void Engine::createMaterials()
 
 void Engine::createLights()
 {
-    mainLight = DirectionalLight(1.0f, 1.0f, 1.0f, 0.1f, 0.3f, 0.0f, 0.0f, -1.0f);
+    mainLight = DirectionalLight(1.0f, 1.0f, 1.0f, 0.1f, 0.1f, 0.0f, 0.0f, -1.0f);
 
-    pointLights.emplace_back(0.0f, 0.0f, 1.0f, 0.1f, 1.0f, 0.0f, 1.0f, 2.0f, 0.9f, 0.2f, 0.1f);
-    pointLights.emplace_back(1.0f, 0.0f, 0.0f, 0.1f, 1.0f, 2.0f, 1.0f, -1.0f, 0.9f, 0.2f, 0.1f);
-    pointLights.emplace_back(0.0f, 1.0f, 0.0f, 0.1f, 1.0f, -2.0f, 1.0f, -1.0f, 0.9f, 0.2f, 0.1f);
+    pointLights.emplace_back(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 2.0f, 0.9f, 0.2f, 0.1f);
+    pointLights.emplace_back(1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 2.0f, 1.0f, -1.0f, 0.9f, 0.2f, 0.1f);
+    pointLights.emplace_back(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, -2.0f, 1.0f, -1.0f, 0.9f, 0.2f, 0.1f);
+
+    spotLights.emplace_back(1.0f, 1.0f, 1.0f, 0.0f, 2.0f, 0.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.1f, 0.1f, 20.0f);
+    spotLights.emplace_back(1.0f, 1.0f, 1.0f, 0.0f, 1.5f, 0.0f, 0.5f, -5.0f, 0.0f, 0.0f, 100.0f, 1.0f, 0.0f, 0.0f, 30.0f);
 }

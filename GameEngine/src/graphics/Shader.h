@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include "lighting/DirectionalLight.h"
 #include "lighting/PointLight.h"
+#include "lighting/SpotLight.h"
 
 class Shader
 {
@@ -16,6 +17,7 @@ public:
 
     void setDirectionalLight(const DirectionalLight& dLight) const;
     void setPointLights(const std::vector<PointLight>& pLights) const;
+    void setSpotLights(const std::vector<SpotLight>& sLights) const;
 
     void use() const;
     void clear();

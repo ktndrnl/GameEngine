@@ -20,6 +20,7 @@ public:
     void swapBuffers() const { glfwSwapBuffers(mainWindow); }
     void toggleMouseLock();
     [[nodiscard]] bool getMouseLocked() const { return mouseLocked; }
+    [[nodiscard]] bool getShouldToggleFlashlight(); // should move somewhere else
 private:
     GLFWwindow* mainWindow;
     GLint width, height;
@@ -33,6 +34,7 @@ private:
     GLfloat yChange;
     bool mouseFirstMoved;
     bool mouseLocked;
+    bool shouldToggleFlashlight;
 
     void createCallbacks() const;
     static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);

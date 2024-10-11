@@ -15,7 +15,7 @@ public:
     void useLight(GLuint ambientIntensityLocation, GLuint ambientColorLocation,
                   GLuint diffuseIntensityLocation, GLuint positionLocation,
                   GLuint constantLocation, GLuint linearLocation, GLuint exponentLocation) const;
-private:
+protected:
     glm::vec3 position;
     GLfloat constant, linear, exponent;
 };

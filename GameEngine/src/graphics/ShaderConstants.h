@@ -11,6 +11,7 @@ namespace ShaderConstants
 
     // Point Light Count
     constexpr int MAX_POINT_LIGHTS = 3;
+    constexpr int MAX_SPOT_LIGHTS = 3;
 }
 
 namespace ShaderUniforms
@@ -48,5 +49,19 @@ namespace ShaderUniforms
         constexpr char CONSTANT[] = "pointLights[%d].constant";
         constexpr char LINEAR[] = "pointLights[%d].linear";
         constexpr char EXPONENT[] = "pointLights[%d].exponent";
+    }
+
+    namespace SpotLight
+    {
+        constexpr char COUNT[] = "spotLightCount";
+        constexpr char BASE_COLOR[] = "spotLights[%d].point.base.color";
+        constexpr char AMBIENT_INTENSITY[] = "spotLights[%d].point.base.ambientIntensity";
+        constexpr char DIFFUSE_INTENSITY[] = "spotLights[%d].point.base.diffuseIntensity";
+        constexpr char POSITION[] = "spotLights[%d].point.position";
+        constexpr char CONSTANT[] = "spotLights[%d].point.constant";
+        constexpr char LINEAR[] = "spotLights[%d].point.linear";
+        constexpr char EXPONENT[] = "spotLights[%d].point.exponent";
+        constexpr char DIRECTION[] = "spotLights[%d].direction";
+        constexpr char EDGE[] = "spotLights[%d].edge";
     }
 }

@@ -126,6 +126,40 @@ void Shader::findUniformLocations() {
         snprintf(locBuff, sizeof(locBuff), ShaderUniforms::PointLight::EXPONENT, i);
         uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
     }
+
+    // Spot light uniforms
+    uniformLocations[ShaderUniforms::SpotLight::COUNT] = glGetUniformLocation(shaderId, ShaderUniforms::SpotLight::COUNT);
+    for (size_t i = 0; i < ShaderConstants::MAX_SPOT_LIGHTS; ++i)
+    {
+        char locBuff[100] = { '\0' };
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::BASE_COLOR, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::AMBIENT_INTENSITY, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::DIFFUSE_INTENSITY, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::POSITION, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::DIRECTION, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::CONSTANT, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::LINEAR, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::EXPONENT, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::EDGE, i);
+        uniformLocations[locBuff] = glGetUniformLocation(shaderId, locBuff);
+    }
 }
 
 GLuint Shader::getUniformLocation(const std::string& name) const {
@@ -152,7 +186,7 @@ void Shader::setPointLights(const std::vector<PointLight>& pLights) const {
         throw std::runtime_error("Too many point lights! Max allowed is " + std::to_string(ShaderConstants::MAX_POINT_LIGHTS));
     }
 
-    glUniform1i(static_cast<GLint>(getUniformLocation("pointLightCount")), static_cast<GLint>(pLights.size()));
+    glUniform1i(static_cast<GLint>(getUniformLocation(ShaderUniforms::PointLight::COUNT)), static_cast<GLint>(pLights.size()));
 
     for (size_t i = 0; i < pLights.size(); i++)
     {
@@ -180,5 +214,49 @@ void Shader::setPointLights(const std::vector<PointLight>& pLights) const {
         const GLuint exponentLocation = getUniformLocation(locBuff);
 
         pLights[i].useLight(ambientIntensityLocation, colorLocation, diffuseIntensityLocation, positionLocation, constantLocation, linearLocation, exponentLocation);
+    }
+}
+
+void Shader::setSpotLights(const std::vector<SpotLight>& sLights) const
+{
+    if (sLights.size() > ShaderConstants::MAX_SPOT_LIGHTS)
+    {
+        throw std::runtime_error("Too many spot lights! Max allowed is " + std::to_string(ShaderConstants::MAX_SPOT_LIGHTS));
+    }
+
+    glUniform1i(static_cast<GLint>(getUniformLocation(ShaderUniforms::SpotLight::COUNT)), static_cast<GLint>(sLights.size()));
+
+    for (size_t i = 0; i < sLights.size(); i++)
+    {
+        char locBuff[100] = { '\0' };
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::AMBIENT_INTENSITY, i);
+        const GLuint ambientIntensityLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::BASE_COLOR, i);
+        const GLuint colorLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::DIFFUSE_INTENSITY, i);
+        const GLuint diffuseIntensityLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::POSITION, i);
+        const GLuint positionLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::DIRECTION, i);
+        const GLuint directionLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::CONSTANT, i);
+        const GLuint constantLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::LINEAR, i);
+        const GLuint linearLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::EXPONENT, i);
+        const GLuint exponentLocation = getUniformLocation(locBuff);
+
+        snprintf(locBuff, sizeof(locBuff), ShaderUniforms::SpotLight::EDGE, i);
+        const GLuint edgeLocation = getUniformLocation(locBuff);
+
+        sLights[i].useLight(ambientIntensityLocation, colorLocation, diffuseIntensityLocation, positionLocation, directionLocation, constantLocation, linearLocation, exponentLocation, edgeLocation);
     }
 }

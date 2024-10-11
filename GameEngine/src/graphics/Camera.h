@@ -13,6 +13,7 @@ public:
     void mouseControl(GLfloat xChange, GLfloat yChange);
     void setMouseLook(const bool enabled) { mouseLookEnabled = enabled; }
     [[nodiscard]] glm::vec3 getCameraPosition() const { return position; }
+    [[nodiscard]] glm::vec3 getCameraDirection() const { return glm::normalize(front); }
     [[nodiscard]] glm::mat4 getViewMatrix() const;
     [[nodiscard]] static glm::mat4 getProjectionMatrix(float aspectRatio);
 

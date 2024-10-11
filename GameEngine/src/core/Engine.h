@@ -33,6 +33,7 @@ private:
 
     DirectionalLight mainLight;
     std::vector<PointLight> pointLights;
+    std::vector<SpotLight> spotLights;
 
     void initialize();
     void mainLoop();
