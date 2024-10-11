@@ -1,8 +1,13 @@
 ﻿#include "Engine.h"
 #include <glm/gtc/type_ptr.hpp>
 
-#include "MathUtils.h"
-#include "ShaderConstants.h"
+#include "graphics/Camera.h"
+#include "graphics/Material.h"
+#include "graphics/Mesh.h"
+#include "graphics/ShaderConstants.h"
+#include "graphics/Texture.h"
+#include "lighting/DirectionalLight.h"
+#include "utilities/MathUtils.h"
 
 Engine::Engine() = default;
 
@@ -46,6 +51,7 @@ void Engine::mainLoop()
         glfwPollEvents();
         camera.keyControl(mainWindow.getKeys(), deltaTime);
         camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+        camera.setMouseLook(mainWindow.getMouseLocked());
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

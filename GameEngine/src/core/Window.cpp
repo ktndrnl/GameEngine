@@ -19,6 +19,7 @@ Window::Window(const GLint windowWidth, const GLint windowHeight)
     xChange = 0.0f;
     yChange = 0.0f;
     mouseFirstMoved = true;
+    mouseLocked = true;
 }
 
 Window::~Window()
@@ -113,6 +114,20 @@ GLfloat Window::getYChange()
     return change;
 }
 
+void Window::toggleMouseLock()
+{
+    if (glfwGetInputMode(mainWindow, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
+    {
+        glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        mouseLocked = false;
+    }
+    else
+    {
+        glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        mouseLocked = true;
+    }
+}
+
 void Window::createCallbacks() const
 {
     glfwSetKeyCallback(mainWindow, handleKeys);
@@ -126,6 +141,11 @@ void Window::handleKeys(GLFWwindow* window, const int key, int code, const int a
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, GL_TRUE);
+    }
+
+    if (key == GLFW_KEY_TAB && action == GLFW_RELEASE)
+    {
+        theWindow->toggleMouseLock();
     }
 
     if (key >= 0 && key < 1024)

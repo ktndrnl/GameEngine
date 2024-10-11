@@ -2,8 +2,9 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "CommonValues.h"
 #include "ShaderConstants.h"
+#include "lighting/DirectionalLight.h"
+#include "lighting/PointLight.h"
 
 Shader::Shader() : shaderId(0) {}
 
@@ -100,7 +101,7 @@ void Shader::findUniformLocations() {
 
     // Point light uniforms
     uniformLocations[ShaderUniforms::PointLight::COUNT] = glGetUniformLocation(shaderId, ShaderUniforms::PointLight::COUNT);
-    for (size_t i = 0; i < MAX_POINT_LIGHTS; ++i)
+    for (size_t i = 0; i < ShaderConstants::MAX_POINT_LIGHTS; ++i)
     {
         char locBuff[100] = { '\0' };
 
@@ -146,7 +147,7 @@ void Shader::setDirectionalLight(const DirectionalLight& dLight) const {
 }
 
 void Shader::setPointLights(const std::vector<PointLight>& pLights) const {
-    if (pLights.size() > MAX_POINT_LIGHTS)
+    if (pLights.size() > ShaderConstants::MAX_POINT_LIGHTS)
     {
         throw std::runtime_error("Too many point lights! Max allowed is " + std::to_string(ShaderConstants::MAX_POINT_LIGHTS));
     }

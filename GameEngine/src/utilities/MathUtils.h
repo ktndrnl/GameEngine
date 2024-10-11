@@ -4,6 +4,7 @@
 #include <glm/gtc/constants.hpp>
 #include <cmath>
 #include <vector>
+#include <GL/glew.h>
 
 namespace mathUtils
 {

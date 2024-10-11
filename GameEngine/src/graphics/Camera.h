@@ -11,6 +11,7 @@ public:
     Camera(glm::vec3 startPosition, glm::vec3 startWorldUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed);
     void keyControl(const bool* keys, GLfloat deltaTime);
     void mouseControl(GLfloat xChange, GLfloat yChange);
+    void setMouseLook(const bool enabled) { mouseLookEnabled = enabled; }
     [[nodiscard]] glm::vec3 getCameraPosition() const { return position; }
     [[nodiscard]] glm::mat4 getViewMatrix() const;
     [[nodiscard]] static glm::mat4 getProjectionMatrix(float aspectRatio);
@@ -27,6 +28,7 @@ private:
 
     GLfloat movementSpeed;
     GLfloat turnSpeed;
+    bool mouseLookEnabled;
 
     void update();
 };

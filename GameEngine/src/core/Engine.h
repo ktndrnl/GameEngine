@@ -3,13 +3,14 @@
 #include <vector>
 
 #include "Window.h"
-#include "Mesh.h"
-#include "Camera.h"
-#include "Texture.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "Material.h"
-#include "ShaderManager.h"
+
+#include "graphics/Camera.h"
+#include "graphics/Material.h"
+#include "graphics/Mesh.h"
+#include "graphics/ShaderManager.h"
+#include "graphics/Texture.h"
+#include "lighting/DirectionalLight.h"
+#include "lighting/PointLight.h"
 
 class Engine
 {

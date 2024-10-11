@@ -2,8 +2,8 @@
 #include <string>
 #include <unordered_map>
 #include <GL/glew.h>
-#include "DirectionalLight.h"
-#include "PointLight.h"
+#include "lighting/DirectionalLight.h"
+#include "lighting/PointLight.h"
 
 class Shader
 {

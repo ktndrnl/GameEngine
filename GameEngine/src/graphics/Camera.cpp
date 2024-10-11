@@ -2,7 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "MathUtils.h"
+#include "utilities/MathUtils.h"
 
 Camera::Camera()
 {
@@ -13,6 +13,7 @@ Camera::Camera()
     front = glm::vec3(0.0f, 0.0f, -1.0f);
     movementSpeed = 5.0f;
     turnSpeed = 0.1f;
+    mouseLookEnabled = true;
     update();
 }
 
@@ -25,6 +26,7 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startWorldUp, GLfloat startYaw
     front = glm::vec3(0.0f, 0.0f, -1.0f);
     movementSpeed = startMoveSpeed;
     turnSpeed = startTurnSpeed;
+    mouseLookEnabled = true;
     update();
 }
 
@@ -65,20 +67,23 @@ void Camera::keyControl(const bool* keys, const GLfloat deltaTime)
 
 void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 {
-    xChange *= turnSpeed;
-    yChange *= turnSpeed;
-
-    yaw += xChange;
-    pitch += yChange;
-
-    if (pitch > 89.0f)
+    if (mouseLookEnabled)
     {
-        pitch = 89.0f;
-    }
+        xChange *= turnSpeed;
+        yChange *= turnSpeed;
 
-    if (pitch < -89.0f)
-    {
-        pitch = -89.0f;
+        yaw += xChange;
+        pitch += yChange;
+
+        if (pitch > 89.0f)
+        {
+            pitch = 89.0f;
+        }
+
+        if (pitch < -89.0f)
+        {
+            pitch = -89.0f;
+        }
     }
 
     update();

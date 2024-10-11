@@ -18,6 +18,8 @@ public:
     GLfloat getXChange();
     GLfloat getYChange();
     void swapBuffers() const { glfwSwapBuffers(mainWindow); }
+    void toggleMouseLock();
+    [[nodiscard]] bool getMouseLocked() const { return mouseLocked; }
 private:
     GLFWwindow* mainWindow;
     GLint width, height;
@@ -30,6 +32,7 @@ private:
     GLfloat xChange;
     GLfloat yChange;
     bool mouseFirstMoved;
+    bool mouseLocked;
 
     void createCallbacks() const;
     static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);
