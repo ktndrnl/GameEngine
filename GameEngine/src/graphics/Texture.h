@@ -8,7 +8,7 @@ public:
     explicit Texture(const char* fileLoc);
     ~Texture();
 
-    void loadTexture();
+    bool loadTexture(bool withAlpha);
     void useTexture() const;
     void clearTexture();
 private:

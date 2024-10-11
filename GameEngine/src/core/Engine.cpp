@@ -165,11 +165,11 @@ void Engine::createMeshes()
 void Engine::createTextures()
 {
     tileTexture = Texture("textures/tile.png");
-    tileTexture.loadTexture();
+    tileTexture.loadTexture(true);
     stoneTexture = Texture("textures/stone.png");
-    stoneTexture.loadTexture();
+    stoneTexture.loadTexture(true);
     floorTexture = Texture("textures/prototype_light.png");
-    floorTexture.loadTexture();
+    floorTexture.loadTexture(true);
 }
 
 void Engine::createMaterials()

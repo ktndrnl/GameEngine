@@ -26,12 +26,13 @@ Texture::~Texture()
     clearTexture();
 }
 
-void Texture::loadTexture()
+bool Texture::loadTexture(const bool withAlpha)
 {
     unsigned char* texData = stbi_load(fileLocation, &width, &height, &bitDepth, 0);
     if (!texData)
     {
         std::cout << "Failed to find: " << fileLocation << std::endl;
+        return false;
     }
 
     glGenTextures(1, &textureId);
@@ -43,12 +44,14 @@ void Texture::loadTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     // glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // 1 byte alignment, needed when texture width is not divisible by 4
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texData);
+    const GLenum format = withAlpha ? GL_RGBA : GL_RGB;
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, texData);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
     stbi_image_free(texData);
+    return true;
 }
 
 void Texture::useTexture() const
